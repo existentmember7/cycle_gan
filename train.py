@@ -43,6 +43,10 @@ LongTensor = torch.cuda.LongTensor if model.cuda else torch.LongTensor
 for epoch in range(model.opt.n_epochs):
     for i, (imgs, labels) in enumerate(model.dataloader):
 
+        # Set model input
+        real_A = Variable(imgs["A"].type(FloatTensor))
+        real_B = Variable(imgs["B"].type(FloatTensor))
+
         batch_size = imgs.shape[0]
 
         # Adversarial ground truths
