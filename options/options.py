@@ -18,4 +18,4 @@ class Option():
 
         self.img_shape = (self.opt.channels, self.opt.img_size, self.opt.img_size)
 
-        self.cuda = True if torch.cuda.is_available() else False
+        

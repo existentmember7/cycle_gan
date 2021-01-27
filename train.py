@@ -14,6 +14,7 @@ import torch.nn.functional as F
 import torch
 
 from models.cycleGAN_model import CycleGANModel
+from options import Option
 
 
 def sample_image(n_row, batches_done, model):
@@ -26,7 +27,8 @@ def sample_image(n_row, batches_done, model):
     gen_imgs = model.generator(z, labels)
     save_image(gen_imgs.data, "images/%d.png" % batches_done, nrow=n_row, normalize=True)
 
-model = CycleGANModel()
+opt = Option()
+model = CycleGANModel(opt)
 
 if model.cuda:
     model.generator.cuda()

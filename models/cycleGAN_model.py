@@ -33,3 +33,6 @@ class CycleGANModel():
         # Optimizers
         self.optimizer_G = torch.optim.Adam(self.generator.parameters(), lr=self.opt.lr, betas=(self.opt.b1, self.opt.b2))
         self.optimizer_D = torch.optim.Adam(self.discriminator.parameters(), lr=self.opt.lr, betas=(self.opt.b1, self.opt.b2))
+
+        # cuda
+        self.cuda = True if torch.cuda.is_available() else False
