@@ -21,7 +21,8 @@ class CycleGANModel():
         self.opt = _opt
 
         # Loss fuctions
-        self.loss_fuction = torch.nn.MSELoss()
+        # self.loss_fuction = torch.nn.MSELoss()
+        self.loss_fuction = torch.nn.BCELoss()
         
         # Generator and Discriminator
         self.generator = networks.Generator()
