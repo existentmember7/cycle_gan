@@ -4,10 +4,11 @@ import cv2
 
 class CustomDataset(Dataset):
 
-    def __init__(self, image_direction_file_A, image_direction_file_B,label_filepath_file):
-        self.image_directions_A = self.read_txt_file(image_direction_file_A)
-        self.image_directions_B = self.read_txt_file(image_direction_file_B)
-        self.labels = self.read_txt_file(label_filepath_file)
+    def __init__(self, _opt):
+        self.opt = _opt
+        self.image_directions_A = self.read_txt_file(self.opt.dataset_A)
+        self.image_directions_B = self.read_txt_file(self.opt.datset_B)
+        self.labels = self.read_txt_file(self.opt.dataset_labels)
 
     def __getitem__(self, idx):
         image_pair = dict()

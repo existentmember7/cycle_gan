@@ -14,6 +14,9 @@ class Option():
         self.parser.add_argument("--img_size", type=int, default=32, help="size of each image dimension")
         self.parser.add_argument("--channels", type=int, default=3, help="number of image channels")
         self.parser.add_argument("--sample_interval", type=int, default=400, help="interval between image sampling")
+        self.parser.add_argument("--dataset_A", type=str, default="/Users/hanwei/Desktop/cycle_gan/dataset/train_data_A.txt", help="the path of dataset A")
+        self.parser.add_argument("--dataset_B", type=str, default="/Users/hanwei/Desktop/cycle_gan/dataset/train_data_B.txt", help="the path of dataset B")
+        self.parser.add_argument("--dataset_labels", type=str, default="/Users/hanwei/Desktop/cycle_gan/dataset/train_label.txt", help="the path of dataset label")
         self.opt = self.parser.parse_args()
 
         self.img_shape = (self.opt.channels, self.opt.img_size, self.opt.img_size)

@@ -1,3 +1,4 @@
+from data.data import CustomDataset
 import os
 import numpy as np
 import math
@@ -6,7 +7,7 @@ import torchvision.transforms as transforms
 from torchvision.utils import save_image
 
 from torch.utils.data import DataLoader
-from torchvision import datasets
+from data import CustomDataset
 from torch.autograd import Variable
 
 import torch.nn as nn
@@ -29,6 +30,8 @@ def sample_image(n_row, batches_done, model):
 
 opt = Option()
 model = CycleGANModel(opt)
+dataset = CustomDataset(opt)
+dataloader = DataLoader()
 
 if model.cuda:
     model.generator.cuda()
