@@ -1,4 +1,4 @@
-from data.data import CustomDataset
+from data import data
 import os
 import numpy as np
 import math
@@ -7,7 +7,6 @@ import torchvision.transforms as transforms
 from torchvision.utils import save_image
 
 from torch.utils.data import DataLoader
-from data import CustomDataset
 from torch.autograd import Variable
 
 import torch.nn as nn
@@ -15,7 +14,7 @@ import torch.nn.functional as F
 import torch
 
 from models.cycleGAN_model import CycleGANModel
-from options import Option
+from options import options
 
 
 def sample_image(n_row, batches_done, model):
@@ -28,10 +27,9 @@ def sample_image(n_row, batches_done, model):
     gen_imgs = model.generator(z, labels)
     save_image(gen_imgs.data, "images/%d.png" % batches_done, nrow=n_row, normalize=True)
 
-opt = Option()
+opt = options.Option().opt
 model = CycleGANModel(opt)
-dataset = CustomDataset(opt)
-dataloader = DataLoader()
+dataset = data.CustomDataset(opt)
 
 if model.cuda:
     model.generator.cuda()
@@ -48,14 +46,14 @@ LongTensor = torch.cuda.LongTensor if model.cuda else torch.LongTensor
 for epoch in range(model.opt.n_epochs):
     for i, (imgs, labels) in enumerate(model.dataloader):
 
-        batch_size = imgs.shape[0]
+        batch_size = imgs["A"].shape[0]
 
         # Adversarial ground truths
         valid = Variable(FloatTensor(batch_size, 1).fill_(1.0), requires_grad=False)
         fake = Variable(FloatTensor(batch_size, 1).fill_(0.0), requires_grad=False)
 
         # Configure input
-        real_imgs = Variable(imgs.type(FloatTensor))
+        real_imgs = Variable(imgs["B"].type(FloatTensor))
         labels = Variable(labels.type(LongTensor))
 
         # -----------------

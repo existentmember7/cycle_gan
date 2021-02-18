@@ -14,6 +14,7 @@ import torch.nn.functional as F
 import torch
 
 from . import networks
+from data import data
 
 class CycleGANModel():
     def __init__(self, _opt):
@@ -25,11 +26,11 @@ class CycleGANModel():
         self.loss_fuction = torch.nn.BCELoss()
         
         # Generator and Discriminator
-        self.generator = networks.Generator()
-        self.discriminator = networks.Discriminator()
+        self.generator = networks.Generator(self.opt)
+        self.discriminator = networks.Discriminator(self.opt)
 
         # Data
-        self.dataloader = 0
+        self.dataloader = DataLoader(data.CustomDataset(self.opt), batch_size = self.opt.batch_size, shuffle = True)
 
         # Optimizers
         self.optimizer_G = torch.optim.Adam(self.generator.parameters(), lr=self.opt.lr, betas=(self.opt.b1, self.opt.b2))
