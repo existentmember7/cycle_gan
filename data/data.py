@@ -12,11 +12,8 @@ class CustomDataset(Dataset):
 
     def __getitem__(self, idx):
         image_pair = dict()
-        # print(self.image_directions_A[idx])
-        # print((self.opt.img_size, self.opt.img_size))
-        # print(label)
-        image_pair["A"] = cv2.resize(cv2.imread(self.image_directions_A[idx].split('\n')[0], cv2.IMREAD_UNCHANGED), (self.opt.img_size, self.opt.img_size))
-        image_pair["B"] = cv2.resize(cv2.imread(self.image_directions_B[idx].split('\n')[0], cv2.IMREAD_UNCHANGED), (self.opt.img_size, self.opt.img_size))
+        image_pair["A"] = cv2.resize(cv2.imread(self.image_directions_A[idx].split('\n')[0], cv2.IMREAD_UNCHANGED), (self.opt.img_width, self.opt.img_height))
+        image_pair["B"] = cv2.resize(cv2.imread(self.image_directions_B[idx].split('\n')[0], cv2.IMREAD_UNCHANGED), (self.opt.img_width, self.opt.img_height))
         label = int(self.labels[idx].split('\n')[0])
 
         return image_pair, label

@@ -2,6 +2,8 @@ import os
 import numpy as np
 import math
 
+from numpy.core.fromnumeric import shape
+
 import torchvision.transforms as transforms
 from torchvision.utils import save_image
 
@@ -114,8 +116,12 @@ class ResidualBlock(nn.Module):
 
 
 class GeneratorResNet(nn.Module):
-    def __init__(self, input_shape, num_residual_blocks):
+    def __init__(self, _opt):
         super(GeneratorResNet, self).__init__()
+
+        self.opt = _opt
+
+        input_shape = (self.opt.channels, self.img_width, self.img_height)
 
         channels = input_shape[0]
 
@@ -140,7 +146,7 @@ class GeneratorResNet(nn.Module):
             in_features = out_features
 
         # Residual blocks
-        for _ in range(num_residual_blocks):
+        for _ in range(self.opt.num_residual_blocks):
             model += [ResidualBlock(out_features)]
 
         # Upsampling
@@ -169,8 +175,12 @@ class GeneratorResNet(nn.Module):
 
 
 class Discriminator(nn.Module):
-    def __init__(self, input_shape):
+    def __init__(self, _opt):
         super(Discriminator, self).__init__()
+
+        self.opt = _opt
+
+        input_shape = (self.opt.channels, self.img_width, self.img_height)
 
         channels, height, width = input_shape
 
