@@ -32,20 +32,13 @@ class CycleGANModel():
         self.criterion_identity = torch.nn.L1Loss()
         
         # Generator and Discriminator
-        # self.generator = networks.Generator(self.opt)
-        # self.discriminator = networks.Discriminator(self.opt)
-
         self.G_AB = networks.GeneratorResNet(self.opt)
         self.G_BA = networks.GeneratorResNet(self.opt)
         self.D_A = networks.Discriminator(self.opt)
         self.D_B = networks.DataLoader(self.opt)
 
         # Data
-        self.dataloader = DataLoader(data.CustomDataset(self.opt), batch_size = self.opt.batch_size, shuffle = True)
-
-        # # Optimizers
-        # self.optimizer_G = torch.optim.Adam(self.generator.parameters(), lr=self.opt.lr, betas=(self.opt.b1, self.opt.b2))
-        # self.optimizer_D = torch.optim.Adam(self.discriminator.parameters(), lr=self.opt.lr, betas=(self.opt.b1, self.opt.b2))
+        # self.dataloader = DataLoader(data.CustomDataset(self.opt), batch_size = self.opt.batch_size, shuffle = True)
 
         # Optimizers
         self.optimizer_G = torch.optim.Adam(

@@ -69,7 +69,7 @@ else:
     model.D_A.apply(weights_init_normal)
     model.D_B.apply(weights_init_normal)
 
-Tensor = torch.cuda.FloatTensor if cuda else torch.Tensor
+Tensor = torch.cuda.FloatTensor if model.cuda else torch.Tensor
 
 # Buffers of previously generated samples
 fake_A_buffer = ReplayBuffer()
